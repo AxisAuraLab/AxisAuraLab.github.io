@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AxisAura Lab — Выпуск второй</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            padding: 80px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 56px;
+            font-weight: 700;
+            color: #d4af37;
+            transform: rotate(-3deg);
+            margin-bottom: 15px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        h1.visible { opacity: 1; }
+
+        .topic {
+            font-family: 'Caveat', cursive;
+            font-size: 40px;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 50px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .topic.visible { opacity: 1; }
+
+        .typed {
+            font-size: 18px;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-bottom: 25px;
+            color: #ffffff;
+            min-height: 30px;
+            text-align: center;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 20px;
+            background-color: #d4af37;
+            vertical-align: middle;
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .smiley {
+            font-family: 'Caveat', cursive;
+            font-size: 56px;
+            font-weight: 700;
+            color: #d4af37;
+            margin: 50px 0 20px 0;
+            min-height: 70px;
+            letter-spacing: 2px;
+        }
+
+        .signature {
+            font-family: 'Caveat', cursive;
+            font-size: 48px;
+            font-weight: 700;
+            color: #d4af37;
+            transform: rotate(-4deg);
+            margin: 20px 0 40px 0;
+            letter-spacing: 18px;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .signature.visible { opacity: 1; }
+
+        .back {
+            font-family: 'Caveat', cursive;
+            font-size: 28px;
+            font-weight: 700;
+            color: #d4af37;
+            text-decoration: none;
+            opacity: 0;
+            transition: opacity 1s ease, color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back.visible { opacity: 1; }
+
+        .back:hover { color: #f0c75e; }
+
+        .back .arrow {
+            font-size: 34px;
+            display: inline-block;
+            transform: rotate(-15deg);
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="title">Выпуск второй — 28 ноября</h1>
+
+    <div class="topic" id="topic">Тема: AxisAura Radio</div>
+
+    <div class="typed" id="typed1"></div>
+    <div class="typed" id="typed2"></div>
+    <div class="typed" id="typed3"></div>
+    <div class="typed" id="typed4"></div>
+    <div class="typed" id="typed5"></div>
+    <div class="typed" id="typed6"></div>
+    <div class="typed" id="typed7"></div>
+
+    <div class="smiley" id="smiley"></div>
+
+    <div class="signature" id="signature">X X X X</div>
+
+    <a href="index.html" class="back" id="back">
+        <span class="arrow">←</span>
+        <span>На главную</span>
+    </a>
+
+    <script>
+        const PRINT_SPEED = 60;
+        const ERASE_SPEED = 40;
+        const PAUSE_BEFORE_ERASE = 1000;
+        const PAUSE_BEFORE_NEW = 500;
+        const PAUSE_AFTER_LINE = 400;
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function typeText(element, segments) {
+            let html = '';
+            for (let i = 0; i < segments.length; i++) {
+                const seg = segments[i];
+
+                if (seg.type === 'text') {
+                    for (const char of seg.value) {
+                        html += char;
+                        element.innerHTML = html + '<span class="cursor"></span>';
+                        await sleep(PRINT_SPEED);
+                    }
+                } else if (seg.type === 'rewrite') {
+                    for (const char of seg.old) {
+                        html += char;
+                        element.innerHTML = html + '<span class="cursor"></span>';
+                        await sleep(PRINT_SPEED);
+                    }
+                    await sleep(PAUSE_BEFORE_ERASE);
+                    for (let j = 0; j < seg.old.length; j++) {
+                        html = html.slice(0, -1);
+                        element.innerHTML = html + '<span class="cursor"></span>';
+                        await sleep(ERASE_SPEED);
+                    }
+                    await sleep(PAUSE_BEFORE_NEW);
+                    for (const char of seg.new) {
+                        html += char;
+                        element.innerHTML = html + '<span class="cursor"></span>';
+                        await sleep(PRINT_SPEED);
+                    }
+                }
+            }
+            element.innerHTML = html;
+        }
+
+        async function smileyAnimation() {
+            const el = document.getElementById('smiley');
+            const frames = [':-)', ';-)', ':-)'];
+
+            for (let i = 0; i < frames.length; i++) {
+                const frame = frames[i];
+                for (const char of frame) {
+                    el.innerHTML += char;
+                    await sleep(120);
+                }
+                if (i < frames.length - 1) {
+                    await sleep(800);
+                    for (let j = 0; j < frame.length; j++) {
+                        el.innerHTML = el.innerHTML.slice(0, -1);
+                        await sleep(60);
+                    }
+                    await sleep(400);
+                }
+            }
+        }
+
+        async function startTyping() {
+            await sleep(500);
+            document.getElementById('title').classList.add('visible');
+            await sleep(800);
+            document.getElementById('topic').classList.add('visible');
+            await sleep(800);
+
+            await typeText(document.getElementById('typed1'), [
+                { type: 'text', value: 'Передача данных на 868 МГц без ' },
+                { type: 'rewrite', old: 'DSP', new: 'процессоров' },
+                { type: 'text', value: '.' }
+            ]);
+            await sleep(PAUSE_AFTER_LINE);
+
+            await typeText(document.getElementById('typed2'), [
+                { type: 'text', value: '7,5 Мбит/с там, где Wi-Fi уже ' },
+                { type: 'rewrite', old: 'не ловит', new: 'слепнет' },
+                { type: 'text', value: '.' }
+            ]);
+            await sleep(PAUSE_AFTER_LINE);
+
+            await typeText(document.getElementById('typed3'), [
+                { type: 'text', value: 'С расчётами, схемами и честным разбором, где метод ' },
+                { type: 'rewrite', old: 'проигрывает', new: 'уступает' },
+                { type: 'text', value: '.' }
+            ]);
+            await sleep(PAUSE_AFTER_LINE);
+
+            await typeText(document.getElementById('typed4'), [
+                { type: 'text', value: 'Мы не даём готовых решений. Мы ищем их вместе с вами.' }
+            ]);
+            await sleep(PAUSE_AFTER_LINE);
+
+            await typeText(document.getElementById('typed5'), [
+                { type: 'text', value: 'Мы строим новый метод передачи данных — с нуля, без бюджетов, без корпораций. На строгой математике, честных ' },
+                { type: 'rewrite', old: 'прототипах', new: 'испытаниях' },
+                { type: 'text', value: ' и пространственно четырёхосевой архитектуре.' }
+            ]);
+            await sleep(PAUSE_AFTER_LINE);
+
+            await typeText(document.getElementById('typed6'), [
+                { type: 'text', value: 'Если ты инженер, физик, программист, математик — напиши нам. Если ты студент и хочешь попробовать себя в реальном проекте — напиши нам. Если ты просто хочешь помочь — напиши нам.' }
+            ]);
+            await sleep(PAUSE_AFTER_LINE);
+
+            await typeText(document.getElementById('typed7'), [
+                { type: 'text', value: 'Мы не обещаем готовый продукт. Мы строим его вместе. Вместе мы творим историю, за которую будет не стыдно перед будущим поколением. Каждый из вас уже творец от рождения. Раскройте свои таланты.' }
+            ]);
+
+            await sleep(800);
+            await smileyAnimation();
+            await sleep(800);
+            document.getElementById('signature').classList.add('visible');
+            await sleep(800);
+            document.getElementById('back').classList.add('visible');
+        }
+
+        startTyping();
+    </script>
+
+</body>
+</html>
