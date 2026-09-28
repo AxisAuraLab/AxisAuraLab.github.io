@@ -66,7 +66,8 @@
         .menu-icon:hover span {
             background-color: #d4af37;
         }
-                .shurik {
+
+        .shurik {
             position: fixed;
             bottom: 0;
             left: 50%;
@@ -76,7 +77,8 @@
             height: auto;
             z-index: 1;
         }
-                .content {
+
+        .content {
             position: relative;
             z-index: 2;
             padding: 120px 40px 350px 40px;
@@ -100,12 +102,43 @@
             text-align: center;
             margin-bottom: 25px;
         }
+
+        .menu-popup {
+            display: none;
+            position: fixed;
+            top: 80px;
+            right: 40px;
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .menu-popup.open {
+            display: flex;
+        }
+
+        .menu-popup a {
+            color: #000000;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            transition: color 0.2s ease;
+        }
+
+        .menu-popup a:hover {
+            color: #d4af37;
+        }
     </style>
 </head>
 <body>
-        <img src="shurik.png" alt="Инженер-изобретатель" class="shurik">
-    
-        <div class="content">
+
+    <img src="shurik.png" alt="Инженер-изобретатель" class="shurik">
+
+    <div class="content">
 
         <p class="tagline">Добро пожаловать!</p>
 
@@ -117,14 +150,27 @@
 
     </div>
 
+    <div class="menu-popup" id="menuPopup">
+        <a href="https://zenodo.org/records/22802994" target="_blank">Холодные матрицы</a>
+        <a href="https://zenodo.org/records/22963892" target="_blank">Axis-Atom</a>
+        <a href="contacts.html">Контакты</a>
+    </div>
+
     <header>
         <a href="about.html" class="logo">AxisAura Lab</a>
-        <div class="menu-icon">
+        <div class="menu-icon" onclick="toggleMenu()">
             <span></span>
             <span></span>
             <span></span>
         </div>
     </header>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menuPopup');
+            menu.classList.toggle('open');
+        }
+    </script>
 
 </body>
 </html>
