@@ -76,10 +76,46 @@
             height: auto;
             z-index: 1;
         }
+                .content {
+            position: relative;
+            z-index: 2;
+            padding: 120px 40px 350px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tagline {
+            font-family: 'Caveat', cursive;
+            font-size: 48px;
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .description {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            color: #ffffff;
+            line-height: 1.7;
+            text-align: center;
+            margin-bottom: 25px;
+        }
     </style>
 </head>
 <body>
         <img src="shurik.png" alt="Инженер-изобретатель" class="shurik">
+    
+        <div class="content">
+
+        <p class="tagline">Добро пожаловать!</p>
+
+        <p class="description">AxisAura Lab — лаборатория, которая ищет новые физические принципы передачи данных. Не битами — ключами. Не вычислениями — адресацией. Не нагревая кремний — используя его холодную геометрию.</p>
+
+        <p class="description">Мы верим: наука — это разговор, а не монолог. Идея важнее диплома. Прототип важнее рецензии. Уважение важнее статуса.</p>
+
+        <p class="description">На этих страницах — история создания нового метода. От первой мысли до работающего прототипа. С чертежами, формулами, спорами с «великими» и, конечно, с Шуриком.</p>
+
+    </div>
 
     <header>
         <a href="about.html" class="logo">AxisAura Lab</a>
