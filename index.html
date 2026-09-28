@@ -76,17 +76,19 @@
             position: fixed;
             bottom: 0;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) scale(1);
+            transform-origin: bottom center;
             max-width: 993px;
             width: 100%;
             height: auto;
             z-index: 1;
+            transition: transform 0.1s linear, opacity 0.1s linear;
         }
 
         .content {
             position: relative;
             z-index: 2;
-            padding: 120px 40px 200px 40px;
+            padding: 120px 40px 400px 40px;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -138,15 +140,79 @@
             color: #d4af37;
         }
 
+        .journal {
+            position: relative;
+            z-index: 2;
+            padding: 80px 40px 80px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .journal-title {
+            font-family: 'Caveat', cursive;
+            font-size: 64px;
+            color: #d4af37;
+            transform: rotate(-3deg);
+            margin-bottom: 70px;
+            display: inline-block;
+        }
+
+        .issues-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px 60px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .issue {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .issue:hover {
+            transform: translateY(-8px);
+        }
+
+        .issue-icon {
+            width: 150px;
+            height: 150px;
+            background-color: #d4af37;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Caveat', cursive;
+            font-size: 72px;
+            font-weight: 700;
+            color: #000000;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .issue:hover .issue-icon {
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.9);
+        }
+
+        .issue-label {
+            margin-top: 18px;
+            font-family: 'Caveat', cursive;
+            font-size: 26px;
+            color: #ffffff;
+        }
+
         footer {
             position: relative;
             z-index: 2;
             text-align: center;
-            padding: 30px 20px 20px 20px;
+            padding: 50px 20px 30px 20px;
             font-family: Arial, sans-serif;
             font-size: 14px;
             color: #888888;
-            margin-top: 100px;
         }
 
         footer a {
@@ -166,7 +232,7 @@
 </head>
 <body>
 
-    <img src="shurik.png" alt="Инженер-изобретатель" class="shurik">
+    <img src="shurik.png" alt="Инженер-изобретатель" class="shurik" id="shurik">
 
     <div class="content">
 
@@ -177,6 +243,46 @@
         <p class="description">Мы верим: наука — это разговор, а не монолог. Идея важнее диплома. Прототип важнее рецензии. Уважение важнее статуса.</p>
 
         <p class="description">На этих страницах — история создания нового метода. От первой мысли до работающего прототипа. С чертежами, формулами, спорами с «великими» и, конечно, с Шуриком.</p>
+
+    </div>
+
+    <div class="journal" id="journal">
+
+        <div class="journal-title">Наш журнал</div>
+
+        <div class="issues-grid">
+
+            <a href="issue1.html" class="issue">
+                <div class="issue-icon">№1</div>
+                <div class="issue-label">Выпуск первый</div>
+            </a>
+
+            <a href="issue2.html" class="issue">
+                <div class="issue-icon">№2</div>
+                <div class="issue-label">Выпуск второй</div>
+            </a>
+
+            <a href="issue3.html" class="issue">
+                <div class="issue-icon">№3</div>
+                <div class="issue-label">Выпуск третий</div>
+            </a>
+
+            <a href="issue4.html" class="issue">
+                <div class="issue-icon">№4</div>
+                <div class="issue-label">Выпуск четвёртый</div>
+            </a>
+
+            <a href="issue5.html" class="issue">
+                <div class="issue-icon">№5</div>
+                <div class="issue-label">Выпуск пятый</div>
+            </a>
+
+            <a href="issue6.html" class="issue">
+                <div class="issue-icon">№6</div>
+                <div class="issue-label">Выпуск шестой</div>
+            </a>
+
+        </div>
 
     </div>
 
@@ -210,6 +316,23 @@
             const menu = document.getElementById('menuPopup');
             menu.classList.toggle('open');
         }
+
+        window.addEventListener('scroll', function() {
+            const shurik = document.getElementById('shurik');
+            const scrollY = window.scrollY;
+            const maxScroll = 500;
+
+            if (scrollY <= maxScroll) {
+                const progress = scrollY / maxScroll;
+                const scale = 1 - progress;
+                const opacity = 1 - progress;
+                shurik.style.transform = 'translateX(-50%) scale(' + scale + ')';
+                shurik.style.opacity = opacity;
+            } else {
+                shurik.style.transform = 'translateX(-50%) scale(0)';
+                shurik.style.opacity = 0;
+            }
+        });
     </script>
 
 </body>
