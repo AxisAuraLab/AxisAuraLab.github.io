@@ -199,7 +199,6 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
             display: flex;
             flex-direction: column;
             transition: transform 0.15s ease-out;
@@ -222,6 +221,7 @@
             border-bottom: 3px solid #b8961f;
             transition: filter 0.3s ease, box-shadow 0.3s ease;
             padding: 0 22px;
+            flex-shrink: 0;
         }
 
         .frame.empty {
@@ -277,7 +277,6 @@
             top: 50%;
             left: 0;
             right: 0;
-            transform: translateY(-50%);
             display: flex;
             flex-direction: column;
             transition: transform 0.15s ease-out;
@@ -292,6 +291,7 @@
             font-family: Arial, sans-serif;
             font-size: 18px;
             color: #ffffff;
+            flex-shrink: 0;
         }
 
         .desc-item.empty {
@@ -518,13 +518,21 @@
 
             const frameHeight = viewportHeight * 0.22;
             const totalFrames = 8;
-            const maxShift = (totalFrames - 1) * frameHeight;
-            const shift = progress * maxShift;
+
+            // Начальная позиция: кадр 1 в центре.
+            // Кадр 1 — второй по счёту. Его центр от верха плёнки = 1.5 * frameHeight.
+            // Центр плёнки = 4 * frameHeight.
+            // Сдвиг = (4 - 1.5) * frameHeight = 2.5 * frameHeight.
+            const initialShift = 2.5 * frameHeight;
+
+            // Всего шагов: от кадра 1 до кадра 7 = 6 шагов.
+            const steps = 6;
+            const shift = initialShift - progress * steps * frameHeight;
 
             film.style.transform = 'translate(-50%, calc(-50% - ' + shift + 'px))';
             descriptions.style.transform = 'translateY(calc(-50% - ' + shift + 'px))';
 
-            const activeIndex = Math.round(progress * (totalFrames - 1)) + 1;
+            const activeIndex = Math.round(progress * steps) + 1;
 
             document.querySelectorAll('.frame').forEach((f) => {
                 const idx = parseInt(f.getAttribute('data-index'));
