@@ -140,13 +140,11 @@
             color: #d4af37;
         }
 
-        .journal {
+        .journal-title-block {
             position: relative;
             z-index: 2;
-            padding: 80px 40px 80px 40px;
-            max-width: 900px;
-            margin: 0 auto;
             text-align: center;
+            padding: 80px 20px 40px 20px;
         }
 
         .journal-title {
@@ -154,55 +152,130 @@
             font-size: 64px;
             color: #d4af37;
             transform: rotate(-3deg);
-            margin-bottom: 70px;
             display: inline-block;
         }
 
-        .issues-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px 60px;
-            max-width: 600px;
-            margin: 0 auto;
+        .filmstrip-zone {
+            position: relative;
+            z-index: 2;
+            height: 66vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 0 40px;
         }
 
-        .issue {
+        .film-column {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+        }
+
+        .film {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            transition: transform 0.3s ease;
+            gap: 0;
+            transition: transform 0.1s linear;
         }
 
-        .issue:hover {
-            transform: translateY(-8px);
-        }
-
-        .issue-icon {
+        .frame {
+            position: relative;
             width: 150px;
-            height: 150px;
+            height: 110px;
             background-color: #d4af37;
-            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Caveat', cursive;
-            font-size: 72px;
+            font-size: 56px;
             font-weight: 700;
             color: #000000;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
-            transition: box-shadow 0.3s ease;
+            text-decoration: none;
+            border-top: 4px solid #b8961f;
+            border-bottom: 4px solid #b8961f;
+            margin: 0;
+            transition: filter 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .issue:hover .issue-icon {
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.9);
+        .frame::before,
+        .frame::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 12px;
+            background-image: radial-gradient(circle, #000 3px, transparent 3px);
+            background-size: 12px 20px;
+            background-repeat: repeat-y;
+            background-position: center;
         }
 
-        .issue-label {
-            margin-top: 18px;
-            font-family: 'Caveat', cursive;
-            font-size: 26px;
+        .frame::before {
+            left: -12px;
+        }
+
+        .frame::after {
+            right: -12px;
+        }
+
+        .frame.active {
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.9);
+            filter: brightness(1.15);
+        }
+
+        .description-column {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+        }
+
+        .descriptions {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.1s linear;
+        }
+
+        .desc-item {
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
             color: #ffffff;
+            transition: opacity 0.3s ease;
+        }
+
+        .desc-item.active {
+            opacity: 1;
+            font-weight: bold;
+        }
+
+        .camera-zone {
+            position: relative;
+            z-index: 2;
+            height: 34vh;
+            width: 100%;
         }
 
         .smiley {
@@ -210,7 +283,7 @@
             font-size: 56px;
             font-weight: 700;
             color: #d4af37;
-            margin: 60px 0 20px 0;
+            margin: 40px 0 20px 0;
             min-height: 70px;
             letter-spacing: 2px;
             text-align: center;
@@ -296,53 +369,45 @@
 
     </div>
 
-    <div class="journal" id="journal">
-
+    <div class="journal-title-block">
         <div class="journal-title">Наш журнал</div>
+    </div>
 
-        <div class="issues-grid">
+    <div class="filmstrip-zone">
 
-            <a href="issue1.html" class="issue">
-                <div class="issue-icon">№1</div>
-                <div class="issue-label">Выпуск первый</div>
-            </a>
-
-            <a href="issue2.html" class="issue">
-                <div class="issue-icon">№2</div>
-                <div class="issue-label">Выпуск второй</div>
-            </a>
-
-            <a href="issue3.html" class="issue">
-                <div class="issue-icon">№3</div>
-                <div class="issue-label">Выпуск третий</div>
-            </a>
-
-            <a href="issue4.html" class="issue">
-                <div class="issue-icon">№4</div>
-                <div class="issue-label">Выпуск четвёртый</div>
-            </a>
-
-            <a href="issue5.html" class="issue">
-                <div class="issue-icon">№5</div>
-                <div class="issue-label">Выпуск пятый</div>
-            </a>
-
-            <a href="issue6.html" class="issue">
-                <div class="issue-icon">№6</div>
-                <div class="issue-label">Выпуск шестой</div>
-            </a>
-
+        <div class="film-column">
+            <div class="film" id="film">
+                <a href="issue1.html" class="frame" data-index="0">№1</a>
+                <a href="issue2.html" class="frame" data-index="1">№2</a>
+                <a href="issue3.html" class="frame" data-index="2">№3</a>
+                <a href="issue4.html" class="frame" data-index="3">№4</a>
+                <a href="issue5.html" class="frame" data-index="4">№5</a>
+                <a href="issue6.html" class="frame" data-index="5">№6</a>
+            </div>
         </div>
 
-        <div class="smiley" id="smiley"></div>
-
-        <div class="signature">X X X X</div>
-
-        <div class="motto">Воображение важнее знания. Знание ограничено, воображение охватывает весь мир.</div>
-
-        <div class="motto-author">Альберт Эйнштейн</div>
+        <div class="description-column">
+            <div class="descriptions" id="descriptions">
+                <div class="desc-item" data-index="0">Выпуск первый</div>
+                <div class="desc-item" data-index="1">Выпуск второй</div>
+                <div class="desc-item" data-index="2">Выпуск третий</div>
+                <div class="desc-item" data-index="3">Выпуск четвёртый</div>
+                <div class="desc-item" data-index="4">Выпуск пятый</div>
+                <div class="desc-item" data-index="5">Выпуск шестой</div>
+            </div>
+        </div>
 
     </div>
+
+    <div class="camera-zone"></div>
+
+    <div class="smiley" id="smiley"></div>
+
+    <div class="signature">X X X X</div>
+
+    <div class="motto">Воображение важнее знания. Значение ограничено, воображение охватывает весь мир.</div>
+
+    <div class="motto-author">Альберт Эйнштейн</div>
 
     <footer>
         <p>© 2026 AxisAura Lab. Все права защищены.</p>
@@ -391,6 +456,48 @@
                 shurik.style.opacity = 0;
             }
         });
+
+        const film = document.getElementById('film');
+        const descriptions = document.getElementById('descriptions');
+        const frameHeight = 110;
+        const totalFrames = 6;
+        const visibleCount = 3;
+
+        function updateFilm() {
+            const zone = document.querySelector('.filmstrip-zone');
+            if (!zone) return;
+
+            const rect = zone.getBoundingClientRect();
+            const zoneHeight = rect.height;
+            const windowHeight = window.innerHeight;
+
+            const scrollStart = windowHeight;
+            const scrollEnd = -zoneHeight;
+            const totalScroll = scrollStart - scrollEnd;
+            const currentScroll = scrollStart - rect.top;
+
+            let progress = currentScroll / totalScroll;
+            progress = Math.max(0, Math.min(1, progress));
+
+            const maxShift = (totalFrames - 1) * frameHeight;
+            const shift = progress * maxShift;
+
+            film.style.transform = 'translate(-50%, calc(-50% - ' + shift + 'px))';
+            descriptions.style.transform = 'translateY(calc(-50% - ' + shift + 'px))';
+
+            const activeIndex = Math.round(progress * (totalFrames - 1));
+
+            document.querySelectorAll('.frame').forEach((f, i) => {
+                f.classList.toggle('active', i === activeIndex);
+            });
+            document.querySelectorAll('.desc-item').forEach((d, i) => {
+                d.classList.toggle('active', i === activeIndex);
+            });
+        }
+
+        window.addEventListener('scroll', updateFilm);
+        window.addEventListener('resize', updateFilm);
+        updateFilm();
 
         async function smileyAnimation() {
             const el = document.getElementById('smiley');
