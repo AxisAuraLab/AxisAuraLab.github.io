@@ -517,22 +517,15 @@
             progress = Math.max(0, Math.min(1, progress));
 
             const frameHeight = viewportHeight * 0.22;
-            const totalFrames = 8;
 
-            // Начальная позиция: кадр 1 в центре.
-            // Кадр 1 — второй по счёту. Его центр от верха плёнки = 1.5 * frameHeight.
-            // Центр плёнки = 4 * frameHeight.
-            // Сдвиг = (4 - 1.5) * frameHeight = 2.5 * frameHeight.
             const initialShift = 2.5 * frameHeight;
-
-            // Всего шагов: от кадра 1 до кадра 7 = 6 шагов.
             const steps = 6;
-            const shift = initialShift - progress * steps * frameHeight;
+            const shift = initialShift + progress * steps * frameHeight;
 
             film.style.transform = 'translate(-50%, calc(-50% - ' + shift + 'px))';
             descriptions.style.transform = 'translateY(calc(-50% - ' + shift + 'px))';
 
-            const activeIndex = Math.round(progress * steps) + 1;
+            const activeIndex = 7 - Math.round(progress * steps);
 
             document.querySelectorAll('.frame').forEach((f) => {
                 const idx = parseInt(f.getAttribute('data-index'));
