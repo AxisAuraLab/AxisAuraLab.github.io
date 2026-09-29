@@ -205,6 +205,56 @@
             color: #ffffff;
         }
 
+        .smiley {
+            font-family: 'Caveat', cursive;
+            font-size: 56px;
+            font-weight: 700;
+            color: #d4af37;
+            margin: 60px 0 20px 0;
+            min-height: 70px;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .signature {
+            font-family: 'Caveat', cursive;
+            font-size: 48px;
+            font-weight: 700;
+            color: #d4af37;
+            transform: rotate(-4deg);
+            margin: 20px 0 60px 0;
+            letter-spacing: 18px;
+            text-align: center;
+        }
+
+        .motto {
+            font-family: 'Caveat', cursive;
+            font-size: 30px;
+            color: #ffffff;
+            max-width: 800px;
+            line-height: 1.6;
+            margin: 0 auto 20px auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .motto::before {
+            content: "“";
+            font-size: 50px;
+            vertical-align: middle;
+            margin-right: 10px;
+            opacity: 0.8;
+        }
+
+        .motto-author {
+            font-family: 'Caveat', cursive;
+            font-size: 28px;
+            color: #d4af37;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
         footer {
             position: relative;
             z-index: 2;
@@ -284,6 +334,14 @@
 
         </div>
 
+        <div class="smiley" id="smiley"></div>
+
+        <div class="signature">X X X X</div>
+
+        <div class="motto">Воображение важнее знания. Знание ограничено, воображение охватывает весь мир.</div>
+
+        <div class="motto-author">Альберт Эйнштейн</div>
+
     </div>
 
     <footer>
@@ -333,6 +391,34 @@
                 shurik.style.opacity = 0;
             }
         });
+
+        async function smileyAnimation() {
+            const el = document.getElementById('smiley');
+            const frames = [':-)', ';-)', ':-)'];
+
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            await sleep(800);
+            for (let i = 0; i < frames.length; i++) {
+                const frame = frames[i];
+                for (const char of frame) {
+                    el.innerHTML += char;
+                    await sleep(70);
+                }
+                if (i < frames.length - 1) {
+                    await sleep(500);
+                    for (let j = 0; j < frame.length; j++) {
+                        el.innerHTML = el.innerHTML.slice(0, -1);
+                        await sleep(45);
+                    }
+                    await sleep(250);
+                }
+            }
+        }
+
+        smileyAnimation();
     </script>
 
 </body>
