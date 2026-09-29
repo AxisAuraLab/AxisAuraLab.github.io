@@ -155,13 +155,18 @@
             display: inline-block;
         }
 
+        .film-wrapper {
+            position: relative;
+            height: calc(100vh + 154vh);
+            z-index: 2;
+        }
+
         .sticky-zone {
             position: sticky;
             top: 0;
             height: 100vh;
             display: flex;
             flex-direction: column;
-            z-index: 2;
             overflow: hidden;
         }
 
@@ -186,8 +191,8 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 35%, black 65%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 35%, black 65%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
         }
 
         .film {
@@ -203,19 +208,20 @@
         .frame {
             position: relative;
             width: 150px;
-            height: 110px;
+            height: 22vh;
             background-color: #d4af37;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Caveat', cursive;
-            font-size: 56px;
+            font-size: 48px;
             font-weight: 700;
             color: #000000;
             text-decoration: none;
-            border-top: 4px solid #b8961f;
-            border-bottom: 4px solid #b8961f;
+            border-top: 3px solid #b8961f;
+            border-bottom: 3px solid #b8961f;
             transition: filter 0.3s ease, box-shadow 0.3s ease;
+            padding: 0 22px;
         }
 
         .frame.empty {
@@ -224,21 +230,31 @@
             pointer-events: none;
         }
 
-        .frame::before,
-        .frame::after {
+        .frame::before {
             content: '';
             position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 12px;
-            background-image: radial-gradient(circle, #000 3px, transparent 3px);
-            background-size: 12px 20px;
+            top: 10px;
+            bottom: 10px;
+            left: 8px;
+            width: 10px;
+            background-image: radial-gradient(circle, #8a6f1f 5px, transparent 5px);
+            background-size: 10px 16px;
             background-repeat: repeat-y;
             background-position: center;
         }
 
-        .frame::before { left: -12px; }
-        .frame::after { right: -12px; }
+        .frame::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            right: 8px;
+            width: 10px;
+            background-image: radial-gradient(circle, #8a6f1f 5px, transparent 5px);
+            background-size: 10px 16px;
+            background-repeat: repeat-y;
+            background-position: center;
+        }
 
         .frame.active {
             box-shadow: 0 0 40px rgba(212, 175, 55, 0.9);
@@ -252,8 +268,8 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 35%, black 65%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 35%, black 65%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
         }
 
         .descriptions {
@@ -268,7 +284,7 @@
         }
 
         .desc-item {
-            height: 110px;
+            height: 22vh;
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -276,7 +292,6 @@
             font-family: Arial, sans-serif;
             font-size: 18px;
             color: #ffffff;
-            transition: opacity 0.3s ease;
         }
 
         .desc-item.empty {
@@ -284,13 +299,7 @@
         }
 
         .desc-item.active {
-            opacity: 1;
             font-weight: bold;
-        }
-
-        .scroll-spacer {
-            height: 900px;
-            width: 100%;
         }
 
         .after-film {
@@ -391,43 +400,45 @@
         <div class="journal-title">Наш журнал</div>
     </div>
 
-    <div class="sticky-zone">
+    <div class="film-wrapper">
 
-        <div class="camera-zone"></div>
+        <div class="sticky-zone">
 
-        <div class="film-zone">
+            <div class="camera-zone"></div>
 
-            <div class="film-column">
-                <div class="film" id="film">
-                    <div class="frame empty"></div>
-                    <a href="issue1.html" class="frame" data-index="1">№1</a>
-                    <a href="issue2.html" class="frame" data-index="2">№2</a>
-                    <a href="issue3.html" class="frame" data-index="3">№3</a>
-                    <a href="issue4.html" class="frame" data-index="4">№4</a>
-                    <a href="issue5.html" class="frame" data-index="5">№5</a>
-                    <a href="issue6.html" class="frame" data-index="6">№6</a>
-                    <div class="frame empty"></div>
+            <div class="film-zone">
+
+                <div class="film-column">
+                    <div class="film" id="film">
+                        <div class="frame empty"></div>
+                        <a href="issue1.html" class="frame" data-index="1">№1</a>
+                        <a href="issue2.html" class="frame" data-index="2">№2</a>
+                        <a href="issue3.html" class="frame" data-index="3">№3</a>
+                        <a href="issue4.html" class="frame" data-index="4">№4</a>
+                        <a href="issue5.html" class="frame" data-index="5">№5</a>
+                        <a href="issue6.html" class="frame" data-index="6">№6</a>
+                        <div class="frame empty"></div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="description-column">
-                <div class="descriptions" id="descriptions">
-                    <div class="desc-item empty"></div>
-                    <div class="desc-item" data-index="1">Выпуск первый</div>
-                    <div class="desc-item" data-index="2">Выпуск второй</div>
-                    <div class="desc-item" data-index="3">Выпуск третий</div>
-                    <div class="desc-item" data-index="4">Выпуск четвёртый</div>
-                    <div class="desc-item" data-index="5">Выпуск пятый</div>
-                    <div class="desc-item" data-index="6">Выпуск шестой</div>
-                    <div class="desc-item empty"></div>
+                <div class="description-column">
+                    <div class="descriptions" id="descriptions">
+                        <div class="desc-item empty"></div>
+                        <div class="desc-item" data-index="1">Выпуск первый</div>
+                        <div class="desc-item" data-index="2">Выпуск второй</div>
+                        <div class="desc-item" data-index="3">Выпуск третий</div>
+                        <div class="desc-item" data-index="4">Выпуск четвёртый</div>
+                        <div class="desc-item" data-index="5">Выпуск пятый</div>
+                        <div class="desc-item" data-index="6">Выпуск шестой</div>
+                        <div class="desc-item empty"></div>
+                    </div>
                 </div>
+
             </div>
 
         </div>
 
     </div>
-
-    <div class="scroll-spacer"></div>
 
     <div class="after-film">
 
@@ -491,20 +502,21 @@
 
         const film = document.getElementById('film');
         const descriptions = document.getElementById('descriptions');
-        const frameHeight = 110;
-        const stickyZone = document.querySelector('.sticky-zone');
+        const filmWrapper = document.querySelector('.film-wrapper');
 
         function updateFilm() {
-            if (!stickyZone) return;
+            if (!filmWrapper) return;
 
-            const rect = stickyZone.getBoundingClientRect();
-            const zoneHeight = stickyZone.offsetHeight;
-            const scrollableHeight = document.querySelector('.scroll-spacer').offsetHeight;
+            const rect = filmWrapper.getBoundingClientRect();
+            const wrapperHeight = filmWrapper.offsetHeight;
+            const viewportHeight = window.innerHeight;
+            const scrollableHeight = wrapperHeight - viewportHeight;
 
             const scrolledInside = -rect.top;
             let progress = scrolledInside / scrollableHeight;
             progress = Math.max(0, Math.min(1, progress));
 
+            const frameHeight = viewportHeight * 0.22;
             const totalFrames = 8;
             const maxShift = (totalFrames - 1) * frameHeight;
             const shift = progress * maxShift;
