@@ -128,17 +128,40 @@
 
         .quote-author.visible { opacity: 1; }
 
-        .issue-image {
-            max-width: 400px;
-            width: 100%;
-            height: auto;
+        .icons-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
             margin-bottom: 60px;
-            opacity: 0;
-            transition: opacity 1.5s ease;
-            border-radius: 12px;
+            flex-wrap: wrap;
         }
 
-        .issue-image.visible { opacity: 1; }
+        .icon-svg {
+            width: 90px;
+            height: 90px;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .icon-svg.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .icon-svg path,
+        .icon-svg rect,
+        .icon-svg circle,
+        .icon-svg line,
+        .icon-svg polyline,
+        .icon-svg polygon {
+            stroke: #d4af37;
+            stroke-width: 4;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
 
         .back {
             font-family: 'Caveat', cursive;
@@ -186,7 +209,32 @@
 
     <div class="quote-author" id="quoteAuthor">Клод Шеннон</div>
 
-    <img src="issue4.png" alt="Структурная криптография" class="issue-image" id="issueImage">
+    <div class="icons-row">
+
+        <svg class="icon-svg" id="icon1" viewBox="0 0 100 100">
+            <rect x="15" y="35" width="70" height="45" rx="5"/>
+            <line x1="25" y1="50" x2="75" y2="50"/>
+            <line x1="25" y1="60" x2="75" y2="60"/>
+            <line x1="25" y1="70" x2="75" y2="70"/>
+            <rect x="25" y="20" width="50" height="15" rx="3"/>
+        </svg>
+
+        <svg class="icon-svg" id="icon2" viewBox="0 0 100 100">
+            <rect x="15" y="15" width="70" height="70" rx="8"/>
+            <circle cx="50" cy="50" r="14"/>
+            <line x1="50" y1="36" x2="50" y2="30"/>
+            <line x1="50" y1="64" x2="50" y2="70"/>
+            <line x1="36" y1="50" x2="30" y2="50"/>
+            <line x1="64" y1="50" x2="70" y2="50"/>
+        </svg>
+
+        <svg class="icon-svg" id="icon3" viewBox="0 0 100 100">
+            <polygon points="50,15 85,30 85,55 50,85 15,55 15,30"/>
+            <line x1="50" y1="35" x2="50" y2="60"/>
+            <circle cx="50" cy="68" r="3"/>
+        </svg>
+
+    </div>
 
     <a href="index.html" class="back" id="back">
         <span class="arrow">←</span>
@@ -317,7 +365,11 @@
             await sleep(1000);
             document.getElementById('quoteAuthor').classList.add('visible');
             await sleep(600);
-            document.getElementById('issueImage').classList.add('visible');
+            document.getElementById('icon1').classList.add('visible');
+            await sleep(400);
+            document.getElementById('icon2').classList.add('visible');
+            await sleep(400);
+            document.getElementById('icon3').classList.add('visible');
             await sleep(600);
             document.getElementById('back').classList.add('visible');
         }
