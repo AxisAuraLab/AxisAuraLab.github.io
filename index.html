@@ -155,10 +155,24 @@
             display: inline-block;
         }
 
-        .filmstrip-zone {
-            position: relative;
+        .sticky-zone {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
             z-index: 2;
-            height: 66vh;
+            overflow: hidden;
+        }
+
+        .camera-zone {
+            height: 33.33vh;
+            width: 100%;
+        }
+
+        .film-zone {
+            height: 66.66vh;
+            width: 100%;
             display: flex;
             align-items: center;
             overflow: hidden;
@@ -172,8 +186,8 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 35%, black 65%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 35%, black 65%, transparent 100%);
         }
 
         .film {
@@ -183,8 +197,7 @@
             transform: translate(-50%, -50%);
             display: flex;
             flex-direction: column;
-            gap: 0;
-            transition: transform 0.1s linear;
+            transition: transform 0.15s ease-out;
         }
 
         .frame {
@@ -202,8 +215,13 @@
             text-decoration: none;
             border-top: 4px solid #b8961f;
             border-bottom: 4px solid #b8961f;
-            margin: 0;
             transition: filter 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .frame.empty {
+            background-color: #3a2f0f;
+            color: #3a2f0f;
+            pointer-events: none;
         }
 
         .frame::before,
@@ -219,13 +237,8 @@
             background-position: center;
         }
 
-        .frame::before {
-            left: -12px;
-        }
-
-        .frame::after {
-            right: -12px;
-        }
+        .frame::before { left: -12px; }
+        .frame::after { right: -12px; }
 
         .frame.active {
             box-shadow: 0 0 40px rgba(212, 175, 55, 0.9);
@@ -239,8 +252,8 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 35%, black 65%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 35%, black 65%, transparent 100%);
         }
 
         .descriptions {
@@ -251,7 +264,7 @@
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
-            transition: transform 0.1s linear;
+            transition: transform 0.15s ease-out;
         }
 
         .desc-item {
@@ -266,16 +279,25 @@
             transition: opacity 0.3s ease;
         }
 
+        .desc-item.empty {
+            color: transparent;
+        }
+
         .desc-item.active {
             opacity: 1;
             font-weight: bold;
         }
 
-        .camera-zone {
+        .scroll-spacer {
+            height: 900px;
+            width: 100%;
+        }
+
+        .after-film {
             position: relative;
             z-index: 2;
-            height: 34vh;
-            width: 100%;
+            padding: 60px 20px;
+            text-align: center;
         }
 
         .smiley {
@@ -286,7 +308,6 @@
             margin: 40px 0 20px 0;
             min-height: 70px;
             letter-spacing: 2px;
-            text-align: center;
         }
 
         .signature {
@@ -297,7 +318,6 @@
             transform: rotate(-4deg);
             margin: 20px 0 60px 0;
             letter-spacing: 18px;
-            text-align: center;
         }
 
         .motto {
@@ -307,7 +327,6 @@
             max-width: 800px;
             line-height: 1.6;
             margin: 0 auto 20px auto;
-            text-align: center;
             position: relative;
         }
 
@@ -325,7 +344,6 @@
             color: #d4af37;
             font-weight: 700;
             margin-bottom: 40px;
-            text-align: center;
         }
 
         footer {
@@ -373,41 +391,55 @@
         <div class="journal-title">Наш журнал</div>
     </div>
 
-    <div class="filmstrip-zone">
+    <div class="sticky-zone">
 
-        <div class="film-column">
-            <div class="film" id="film">
-                <a href="issue1.html" class="frame" data-index="0">№1</a>
-                <a href="issue2.html" class="frame" data-index="1">№2</a>
-                <a href="issue3.html" class="frame" data-index="2">№3</a>
-                <a href="issue4.html" class="frame" data-index="3">№4</a>
-                <a href="issue5.html" class="frame" data-index="4">№5</a>
-                <a href="issue6.html" class="frame" data-index="5">№6</a>
-            </div>
-        </div>
+        <div class="camera-zone"></div>
 
-        <div class="description-column">
-            <div class="descriptions" id="descriptions">
-                <div class="desc-item" data-index="0">Выпуск первый</div>
-                <div class="desc-item" data-index="1">Выпуск второй</div>
-                <div class="desc-item" data-index="2">Выпуск третий</div>
-                <div class="desc-item" data-index="3">Выпуск четвёртый</div>
-                <div class="desc-item" data-index="4">Выпуск пятый</div>
-                <div class="desc-item" data-index="5">Выпуск шестой</div>
+        <div class="film-zone">
+
+            <div class="film-column">
+                <div class="film" id="film">
+                    <div class="frame empty"></div>
+                    <a href="issue1.html" class="frame" data-index="1">№1</a>
+                    <a href="issue2.html" class="frame" data-index="2">№2</a>
+                    <a href="issue3.html" class="frame" data-index="3">№3</a>
+                    <a href="issue4.html" class="frame" data-index="4">№4</a>
+                    <a href="issue5.html" class="frame" data-index="5">№5</a>
+                    <a href="issue6.html" class="frame" data-index="6">№6</a>
+                    <div class="frame empty"></div>
+                </div>
             </div>
+
+            <div class="description-column">
+                <div class="descriptions" id="descriptions">
+                    <div class="desc-item empty"></div>
+                    <div class="desc-item" data-index="1">Выпуск первый</div>
+                    <div class="desc-item" data-index="2">Выпуск второй</div>
+                    <div class="desc-item" data-index="3">Выпуск третий</div>
+                    <div class="desc-item" data-index="4">Выпуск четвёртый</div>
+                    <div class="desc-item" data-index="5">Выпуск пятый</div>
+                    <div class="desc-item" data-index="6">Выпуск шестой</div>
+                    <div class="desc-item empty"></div>
+                </div>
+            </div>
+
         </div>
 
     </div>
 
-    <div class="camera-zone"></div>
+    <div class="scroll-spacer"></div>
 
-    <div class="smiley" id="smiley"></div>
+    <div class="after-film">
 
-    <div class="signature">X X X X</div>
+        <div class="smiley" id="smiley"></div>
 
-    <div class="motto">Воображение важнее знания. Значение ограничено, воображение охватывает весь мир.</div>
+        <div class="signature">X X X X</div>
 
-    <div class="motto-author">Альберт Эйнштейн</div>
+        <div class="motto">Воображение важнее знания. Знание ограничено, воображение охватывает весь мир.</div>
+
+        <div class="motto-author">Альберт Эйнштейн</div>
+
+    </div>
 
     <footer>
         <p>© 2026 AxisAura Lab. Все права защищены.</p>
@@ -460,38 +492,35 @@
         const film = document.getElementById('film');
         const descriptions = document.getElementById('descriptions');
         const frameHeight = 110;
-        const totalFrames = 6;
-        const visibleCount = 3;
+        const stickyZone = document.querySelector('.sticky-zone');
 
         function updateFilm() {
-            const zone = document.querySelector('.filmstrip-zone');
-            if (!zone) return;
+            if (!stickyZone) return;
 
-            const rect = zone.getBoundingClientRect();
-            const zoneHeight = rect.height;
-            const windowHeight = window.innerHeight;
+            const rect = stickyZone.getBoundingClientRect();
+            const zoneHeight = stickyZone.offsetHeight;
+            const scrollableHeight = document.querySelector('.scroll-spacer').offsetHeight;
 
-            const scrollStart = windowHeight;
-            const scrollEnd = -zoneHeight;
-            const totalScroll = scrollStart - scrollEnd;
-            const currentScroll = scrollStart - rect.top;
-
-            let progress = currentScroll / totalScroll;
+            const scrolledInside = -rect.top;
+            let progress = scrolledInside / scrollableHeight;
             progress = Math.max(0, Math.min(1, progress));
 
+            const totalFrames = 8;
             const maxShift = (totalFrames - 1) * frameHeight;
             const shift = progress * maxShift;
 
             film.style.transform = 'translate(-50%, calc(-50% - ' + shift + 'px))';
             descriptions.style.transform = 'translateY(calc(-50% - ' + shift + 'px))';
 
-            const activeIndex = Math.round(progress * (totalFrames - 1));
+            const activeIndex = Math.round(progress * (totalFrames - 1)) + 1;
 
-            document.querySelectorAll('.frame').forEach((f, i) => {
-                f.classList.toggle('active', i === activeIndex);
+            document.querySelectorAll('.frame').forEach((f) => {
+                const idx = parseInt(f.getAttribute('data-index'));
+                f.classList.toggle('active', idx === activeIndex);
             });
-            document.querySelectorAll('.desc-item').forEach((d, i) => {
-                d.classList.toggle('active', i === activeIndex);
+            document.querySelectorAll('.desc-item').forEach((d) => {
+                const idx = parseInt(d.getAttribute('data-index'));
+                d.classList.toggle('active', idx === activeIndex);
             });
         }
 
