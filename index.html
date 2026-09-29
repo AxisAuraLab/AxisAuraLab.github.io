@@ -520,12 +520,12 @@
 
             const initialShift = 2.5 * frameHeight;
             const steps = 6;
-            const shift = initialShift + progress * steps * frameHeight;
+            const shift = initialShift - progress * steps * frameHeight;
 
             film.style.transform = 'translate(-50%, calc(-50% - ' + shift + 'px))';
             descriptions.style.transform = 'translateY(calc(-50% - ' + shift + 'px))';
 
-            const activeIndex = 7 - Math.round(progress * steps);
+            const activeIndex = Math.round(progress * steps) + 1;
 
             document.querySelectorAll('.frame').forEach((f) => {
                 const idx = parseInt(f.getAttribute('data-index'));
