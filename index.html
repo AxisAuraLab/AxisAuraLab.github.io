@@ -356,6 +356,78 @@
             margin-bottom: 40px;
         }
 
+        .divider {
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.6), transparent);
+            margin: 50px auto;
+            border-radius: 2px;
+        }
+
+        .motto-devis {
+            font-family: 'Caveat', cursive;
+            font-size: 30px;
+            color: #d4af37;
+            text-align: center;
+            margin: 20px auto;
+            max-width: 800px;
+            line-height: 1.5;
+        }
+
+        .motto-devis.white {
+            color: #ffffff;
+        }
+
+        .roadmap-title {
+            font-family: 'Caveat', cursive;
+            font-size: 56px;
+            color: #d4af37;
+            text-align: center;
+            margin: 40px auto 60px auto;
+            transform: rotate(-3deg);
+        }
+
+        .roadmap {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .roadmap-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .roadmap-arrow {
+            width: 60px;
+            height: 100px;
+            flex-shrink: 0;
+        }
+
+        .roadmap-text {
+            font-family: Arial, sans-serif;
+            font-size: 17px;
+            line-height: 1.6;
+            text-align: left;
+            padding-top: 10px;
+        }
+
+        .roadmap-text.white {
+            color: #ffffff;
+        }
+
+        .roadmap-text.gold {
+            color: #d4af37;
+        }
+
+        .roadmap-text strong {
+            font-family: 'Caveat', cursive;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
         footer {
             position: relative;
             z-index: 2;
@@ -450,6 +522,77 @@
         <div class="motto">Воображение важнее знания. Знание ограничено, воображение охватывает весь мир.</div>
 
         <div class="motto-author">Альберт Эйнштейн</div>
+
+        <div class="divider"></div>
+
+        <div class="motto-devis">Это не просто журнал — это лаборатория с открытым участием.</div>
+
+        <div class="motto-devis white">Ищем позитивных людей.</div>
+
+        <div class="motto-devis">В нашей команде юмор всегда к месту. Он задаёт тон.</div>
+
+        <div class="divider"></div>
+
+        <div class="roadmap-title">Дорожная карта</div>
+
+        <div class="roadmap">
+
+            <div class="roadmap-item">
+                <svg class="roadmap-arrow" viewBox="0 0 60 80" preserveAspectRatio="none">
+                    <path d="M 30 0 Q 28 20, 32 40 Q 34 55, 30 70" stroke="#d4af37" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <polygon points="26,68 30,78 34,68" fill="#d4af37"/>
+                </svg>
+                <div class="roadmap-text white">
+                    <strong>28 октября 2026 — старт.</strong><br>
+                    Запуск платформы. Первый выпуск. Открытие разделов «Чертежи» и «Обсуждения».
+                </div>
+            </div>
+
+            <div class="roadmap-item">
+                <svg class="roadmap-arrow" viewBox="0 0 60 80" preserveAspectRatio="none">
+                    <path d="M 30 0 Q 33 20, 28 40 Q 25 55, 30 70" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <polygon points="26,68 30,78 34,68" fill="#ffffff"/>
+                </svg>
+                <div class="roadmap-text gold">
+                    <strong>Ноябрь–декабрь 2026 — формирование.</strong><br>
+                    Первые участники. Первые чертежи. Первые дискуссии. Выпуски 2 и 3.
+                </div>
+            </div>
+
+            <div class="roadmap-item">
+                <svg class="roadmap-arrow" viewBox="0 0 60 80" preserveAspectRatio="none">
+                    <path d="M 30 0 Q 27 20, 32 40 Q 34 55, 30 70" stroke="#d4af37" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <polygon points="26,68 30,78 34,68" fill="#d4af37"/>
+                </svg>
+                <div class="roadmap-text white">
+                    <strong>28 января 2027 — YouTube.</strong><br>
+                    Запуск канала. Видео о методе, выпусках, прототипах.
+                </div>
+            </div>
+
+            <div class="roadmap-item">
+                <svg class="roadmap-arrow" viewBox="0 0 60 80" preserveAspectRatio="none">
+                    <path d="M 30 0 Q 32 20, 27 40 Q 25 55, 30 70" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <polygon points="26,68 30,78 34,68" fill="#ffffff"/>
+                </svg>
+                <div class="roadmap-text gold">
+                    <strong>Февраль–март 2027 — развитие.</strong><br>
+                    Активное сообщество. Совместные проекты. Первые реализации в железе. Выпуски 4, 5, 6.
+                </div>
+            </div>
+
+            <div class="roadmap-item">
+                <svg class="roadmap-arrow" viewBox="0 0 60 80" preserveAspectRatio="none">
+                    <path d="M 30 0 Q 28 20, 33 40 Q 34 55, 30 70" stroke="#d4af37" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <polygon points="26,68 30,78 34,68" fill="#d4af37"/>
+                </svg>
+                <div class="roadmap-text white">
+                    <strong>Весна 2027 — партнёры.</strong><br>
+                    Лаборатории приходят сами. Совместные испытания. Новые выпуски — о результатах.
+                </div>
+            </div>
+
+        </div>
 
     </div>
 
