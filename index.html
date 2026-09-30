@@ -29,17 +29,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 40px;
+            padding: 20px;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 100;
+            gap: 15px;
         }
 
         .logo {
             font-family: 'Caveat', cursive;
-            font-size: 38px;
+            font-size: 26px;
             font-weight: 700;
             color: #d4af37;
             text-decoration: none;
@@ -54,31 +55,29 @@
 
         .telegram-btn {
             font-family: 'Caveat', cursive;
-            font-size: 26px;
+            font-size: 18px;
             font-weight: 700;
             color: #000000;
             background-color: #d4af37;
-            padding: 8px 24px;
-            border-radius: 24px;
+            padding: 4px 14px;
+            border-radius: 16px;
             text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
+            transition: background-color 0.3s ease;
+            white-space: nowrap;
         }
 
         .telegram-btn:hover {
             background-color: #f0c75e;
-            transform: translateX(-50%) scale(1.05);
         }
 
         .menu-icon {
-            width: 35px;
-            height: 28px;
+            width: 28px;
+            height: 22px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .menu-icon span {
@@ -134,8 +133,8 @@
         .menu-popup {
             display: none;
             position: fixed;
-            top: 80px;
-            right: 40px;
+            top: 70px;
+            right: 20px;
             background-color: #ffffff;
             padding: 20px 30px;
             border-radius: 8px;
