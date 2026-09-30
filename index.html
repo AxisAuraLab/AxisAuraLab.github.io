@@ -59,17 +59,26 @@
 
         .logo {
             font-family: 'Caveat', cursive;
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 700;
             color: #d4af37;
             text-decoration: none;
             transform: rotate(-4deg);
             display: inline-block;
             transition: color 0.3s ease;
+            white-space: nowrap;
         }
 
         .logo:hover {
             color: #f0c75e;
+        }
+
+        .reg {
+            font-size: 14px;
+            vertical-align: super;
+            color: #d4af37;
+            opacity: 0.8;
+            margin-left: 2px;
         }
 
         .telegram-btn {
@@ -652,7 +661,7 @@
 
     <header>
         <div class="header-left">
-            <a href="about.html" class="logo">AxisAura Lab</a>
+            <a href="about.html" class="logo">AxisAura<span class="reg">®</span></a>
         </div>
         <div class="header-center">
             <a href="telegram.html" class="telegram-btn">Telegram</a>
