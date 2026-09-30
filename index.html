@@ -35,7 +35,26 @@
             left: 0;
             width: 100%;
             z-index: 100;
-            gap: 15px;
+        }
+
+        .header-left,
+        .header-center,
+        .header-right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left {
+            justify-content: flex-start;
+        }
+
+        .header-center {
+            justify-content: center;
+        }
+
+        .header-right {
+            justify-content: flex-end;
         }
 
         .logo {
@@ -632,12 +651,18 @@
     </div>
 
     <header>
-        <a href="about.html" class="logo">AxisAura Lab</a>
-        <a href="telegram.html" class="telegram-btn">Telegram</a>
-        <div class="menu-icon" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="header-left">
+            <a href="about.html" class="logo">AxisAura Lab</a>
+        </div>
+        <div class="header-center">
+            <a href="telegram.html" class="telegram-btn">Telegram</a>
+        </div>
+        <div class="header-right">
+            <div class="menu-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </header>
 
