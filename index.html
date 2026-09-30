@@ -120,6 +120,69 @@
             background-color: #d4af37;
         }
 
+        .menu-popup {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 260px;
+            height: 100vh;
+            background-color: #d4af37;
+            padding: 80px 25px 40px 25px;
+            z-index: 300;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .menu-popup.open {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .menu-popup a {
+            color: #000000;
+            text-decoration: none;
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            font-weight: 700;
+            padding: 14px 0;
+            transition: color 0.2s ease;
+            text-align: center;
+        }
+
+        .menu-popup a:hover {
+            color: #3a2f0f;
+        }
+
+        .menu-divider {
+            width: 70%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.4), transparent);
+            margin: 4px auto;
+            border-radius: 1px;
+        }
+
+        .menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: 'Caveat', cursive;
+            font-size: 32px;
+            color: #000000;
+            cursor: pointer;
+            font-weight: 700;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+
+        .menu-close:hover {
+            color: #3a2f0f;
+        }
+
         .shurik {
             position: fixed;
             bottom: 0;
@@ -156,36 +219,6 @@
             line-height: 1.7;
             text-align: center;
             margin-bottom: 25px;
-        }
-
-        .menu-popup {
-            display: none;
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            background-color: #ffffff;
-            padding: 20px 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            z-index: 200;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .menu-popup.open {
-            display: flex;
-        }
-
-        .menu-popup a {
-            color: #000000;
-            text-decoration: none;
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-            transition: color 0.2s ease;
-        }
-
-        .menu-popup a:hover {
-            color: #d4af37;
         }
 
         .journal-title-block {
@@ -654,9 +687,16 @@
     </footer>
 
     <div class="menu-popup" id="menuPopup">
+        <div class="menu-close" onclick="toggleMenu()">×</div>
         <a href="https://zenodo.org/records/22802994" target="_blank">Холодные матрицы</a>
+        <div class="menu-divider"></div>
         <a href="https://zenodo.org/records/22963892" target="_blank">Axis-Atom</a>
+        <div class="menu-divider"></div>
         <a href="contacts.html">Контакты</a>
+        <div class="menu-divider"></div>
+        <a href="about.html">О лаборатории</a>
+        <div class="menu-divider"></div>
+        <a href="https://t.me/AxisAura_Lab" target="_blank">Telegram</a>
     </div>
 
     <header>
