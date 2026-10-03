@@ -395,6 +395,14 @@
             width: 100%;
             height: auto;
             display: inline-block;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1.2s ease, transform 1.2s ease;
+        }
+
+        .closing-image.visible {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .after-film {
@@ -608,7 +616,7 @@
     </div>
 
     <div class="closing-image-block">
-        <img src="shurik_end_1.png" alt="А что если..." class="closing-image">
+        <img src="shurik_end_1.png" alt="А что если..." class="closing-image" id="closingImage">
     </div>
 
     <div class="after-film">
@@ -755,6 +763,21 @@
                 shurik.style.opacity = 0;
             }
         });
+
+        const closingImage = document.getElementById('closingImage');
+
+        function checkClosingImage() {
+            if (!closingImage) return;
+            const rect = closingImage.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            if (rect.top < windowHeight - 100) {
+                closingImage.classList.add('visible');
+            }
+        }
+
+        window.addEventListener('scroll', checkClosingImage);
+        checkClosingImage();
 
         const film = document.getElementById('film');
         const descriptions = document.getElementById('descriptions');
