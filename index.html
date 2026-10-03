@@ -37,9 +37,7 @@
             z-index: 100;
         }
 
-        .header-left,
-        .header-center,
-        .header-right {
+        .header-left, .header-center, .header-right {
             flex: 1;
             display: flex;
             align-items: center;
@@ -80,7 +78,6 @@
             padding: 4px 14px;
             border-radius: 16px;
             text-decoration: none;
-            transition: background-color 0.3s ease;
             white-space: nowrap;
         }
 
@@ -101,7 +98,6 @@
             height: 3px;
             background-color: #ffffff;
             border-radius: 2px;
-            transition: background-color 0.3s ease;
         }
 
         .menu-icon:hover span { background-color: #d4af37; }
@@ -135,18 +131,14 @@
             font-size: 22px;
             font-weight: 700;
             padding: 14px 0;
-            transition: color 0.2s ease;
             text-align: center;
         }
-
-        .menu-popup a:hover { color: #3a2f0f; }
 
         .menu-divider {
             width: 70%;
             height: 1px;
             background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.4), transparent);
             margin: 4px auto;
-            border-radius: 1px;
         }
 
         .menu-close {
@@ -158,11 +150,7 @@
             color: #000000;
             cursor: pointer;
             font-weight: 700;
-            line-height: 1;
-            transition: color 0.2s ease;
         }
-
-        .menu-close:hover { color: #3a2f0f; }
 
         .shurik {
             position: fixed;
@@ -194,7 +182,6 @@
         }
 
         .description {
-            font-family: Arial, sans-serif;
             font-size: 18px;
             color: #ffffff;
             line-height: 1.7;
@@ -217,20 +204,28 @@
             display: inline-block;
         }
 
+        /* === НОВАЯ СХЕМА: film-wrapper как пустой spacer === */
         .film-wrapper {
             position: relative;
             height: calc(100vh + 154vh);
             z-index: 2;
         }
 
+        /* Плёнка: fixed, показывается через класс visible */
         .sticky-zone {
-            position: sticky;
-            position: -webkit-sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
             height: 100vh;
-            display: flex;
+            display: none;
             flex-direction: column;
             overflow: hidden;
+            z-index: 200;
+        }
+
+        .sticky-zone.visible {
+            display: flex;
         }
 
         .camera-zone {
@@ -278,7 +273,6 @@
             left: 50%;
             display: flex;
             flex-direction: column;
-            transform: translate(-50%, -50%) translateZ(0);
             will-change: transform;
         }
 
@@ -297,7 +291,6 @@
             text-decoration: none;
             border-top: 3px solid #b8961f;
             border-bottom: 3px solid #b8961f;
-            transition: filter 0.3s ease, box-shadow 0.3s ease;
             padding: 0 22px;
             flex-shrink: 0;
         }
@@ -357,7 +350,6 @@
             right: 0;
             display: flex;
             flex-direction: column;
-            transform: translateY(-50%) translateZ(0);
             will-change: transform;
         }
 
@@ -367,7 +359,6 @@
             align-items: center;
             justify-content: flex-start;
             padding-left: 20px;
-            font-family: Arial, sans-serif;
             font-size: 18px;
             color: #ffffff;
             flex-shrink: 0;
@@ -376,6 +367,7 @@
         .desc-item.empty { color: transparent; }
         .desc-item.active { font-weight: bold; }
 
+        /* === НИЖНЯЯ КАРТИНКА: тоже fixed === */
         .closing-wrapper {
             position: relative;
             height: calc(100vh + 500px);
@@ -383,13 +375,19 @@
         }
 
         .closing-sticky {
-            position: sticky;
-            position: -webkit-sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
             height: 100vh;
-            display: flex;
+            display: none;
             flex-direction: column;
             overflow: hidden;
+            z-index: 200;
+        }
+
+        .closing-sticky.visible {
+            display: flex;
         }
 
         .closing-caption-zone {
@@ -406,7 +404,6 @@
             height: 2px;
             background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.6), transparent);
             margin-bottom: 20px;
-            border-radius: 2px;
         }
 
         .closing-caption {
@@ -471,7 +468,6 @@
             max-width: 800px;
             line-height: 1.6;
             margin: 0 auto 20px auto;
-            position: relative;
         }
 
         .motto::before {
@@ -495,7 +491,6 @@
             height: 2px;
             background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.6), transparent);
             margin: 50px auto;
-            border-radius: 2px;
         }
 
         .motto-devis {
@@ -553,7 +548,6 @@
         }
 
         .roadmap-text {
-            font-family: Arial, sans-serif;
             font-size: 17px;
             line-height: 1.6;
             text-align: left;
@@ -574,7 +568,6 @@
             z-index: 2;
             text-align: center;
             padding: 50px 20px 30px 20px;
-            font-family: Arial, sans-serif;
             font-size: 14px;
             color: #888888;
         }
@@ -582,7 +575,6 @@
         footer a {
             color: #d4af37;
             text-decoration: none;
-            transition: color 0.2s ease;
         }
 
         footer a:hover { color: #f0c75e; }
@@ -609,9 +601,9 @@
         <div class="journal-title">Наш журнал</div>
     </div>
 
-    <div class="film-wrapper">
+    <div class="film-wrapper" id="filmWrapper">
 
-        <div class="sticky-zone">
+        <div class="sticky-zone" id="stickyZone">
 
             <div class="camera-zone">
                 <img src="wheel1.png" alt="Колесо" class="wheel-image" id="wheelImage">
@@ -653,7 +645,7 @@
 
     <div class="closing-wrapper" id="closingWrapper">
 
-        <div class="closing-sticky">
+        <div class="closing-sticky" id="closingSticky">
 
             <div class="closing-caption-zone">
                 <div class="closing-divider"></div>
@@ -812,23 +804,27 @@
             img.src = src;
         });
 
-        // === ОПТИМИЗАЦИЯ ДЛЯ SAFARI (iPhone) ===
+        // === ЭЛЕМЕНТЫ ===
         const shurik = document.getElementById('shurik');
         const closingImage = document.getElementById('closingImage');
         const closingWrapper = document.getElementById('closingWrapper');
+        const closingSticky = document.getElementById('closingSticky');
+        const filmWrapper = document.getElementById('filmWrapper');
+        const stickyZone = document.getElementById('stickyZone');
         const film = document.getElementById('film');
         const descriptions = document.getElementById('descriptions');
-        const filmWrapper = document.querySelector('.film-wrapper');
         const wheelImage = document.getElementById('wheelImage');
         const wheelFrames = ['wheel1.png', 'wheel2.png', 'wheel3.png'];
 
         let lastWheelIndex = 0;
         let ticking = false;
 
+        // === ГЛАВНАЯ ФУНКЦИЯ ===
         function updateOnScroll() {
             const scrollY = window.scrollY;
+            const viewportHeight = window.innerHeight;
 
-            // Шурик (верхний)
+            // === ШУРИК ВЕРХНИЙ ===
             const maxScroll = 500;
             if (scrollY <= maxScroll) {
                 const progress = scrollY / maxScroll;
@@ -844,35 +840,16 @@
                 shurik.style.filter = 'blur(15px)';
             }
 
-            // Нижняя картинка
-            if (closingImage && closingWrapper) {
-                const rect = closingWrapper.getBoundingClientRect();
-                const wrapperHeight = closingWrapper.offsetHeight;
-                const viewportHeight = window.innerHeight;
-                const scrollableHeight = wrapperHeight - viewportHeight;
+            // === ПЛЁНКА (fixed + JS) ===
+            const filmRect = filmWrapper.getBoundingClientRect();
+            const filmScrollableHeight = filmWrapper.offsetHeight - viewportHeight;
 
-                const scrolledInside = -rect.top;
-                let progress = scrolledInside / scrollableHeight;
-                progress = Math.max(0, Math.min(1, progress));
+            if (filmRect.top <= 0 && filmRect.bottom >= viewportHeight) {
+                // Плёнка должна быть видна
+                stickyZone.classList.add('visible');
 
-                const scale = 0.2 + progress * 0.8;
-                const blur = 15 - progress * 15;
-                const opacity = progress;
-
-                closingImage.style.transform = 'scale(' + scale + ') translateZ(0)';
-                closingImage.style.filter = 'blur(' + blur + 'px)';
-                closingImage.style.opacity = opacity;
-            }
-
-            // Плёнка
-            if (filmWrapper && film && descriptions) {
-                const rect = filmWrapper.getBoundingClientRect();
-                const wrapperHeight = filmWrapper.offsetHeight;
-                const viewportHeight = window.innerHeight;
-                const scrollableHeight = wrapperHeight - viewportHeight;
-
-                const scrolledInside = -rect.top;
-                let progress = scrolledInside / scrollableHeight;
+                const scrolledInside = -filmRect.top;
+                let progress = scrolledInside / filmScrollableHeight;
                 progress = Math.max(0, Math.min(1, progress));
 
                 const frameHeight = viewportHeight * 0.22;
@@ -893,15 +870,39 @@
                     const idx = parseInt(d.getAttribute('data-index'));
                     d.classList.toggle('active', idx === activeIndex);
                 });
+
+                // Колесо — смена картинки
+                if (wheelImage) {
+                    const index = Math.floor(scrolledInside / 150) % wheelFrames.length;
+                    if (index !== lastWheelIndex) {
+                        wheelImage.src = wheelFrames[index];
+                        lastWheelIndex = index;
+                    }
+                }
+            } else {
+                stickyZone.classList.remove('visible');
             }
 
-            // Колесо — смена картинки
-            if (wheelImage) {
-                const index = Math.floor(scrollY / 150) % wheelFrames.length;
-                if (index !== lastWheelIndex) {
-                    wheelImage.src = wheelFrames[index];
-                    lastWheelIndex = index;
-                }
+            // === НИЖНЯЯ КАРТИНКА (fixed + JS) ===
+            const closingRect = closingWrapper.getBoundingClientRect();
+            const closingScrollableHeight = closingWrapper.offsetHeight - viewportHeight;
+
+            if (closingRect.top <= 0 && closingRect.bottom >= viewportHeight) {
+                closingSticky.classList.add('visible');
+
+                const scrolledInside = -closingRect.top;
+                let progress = scrolledInside / closingScrollableHeight;
+                progress = Math.max(0, Math.min(1, progress));
+
+                const scale = 0.2 + progress * 0.8;
+                const blur = 15 - progress * 15;
+                const opacity = progress;
+
+                closingImage.style.transform = 'scale(' + scale + ') translateZ(0)';
+                closingImage.style.filter = 'blur(' + blur + 'px)';
+                closingImage.style.opacity = opacity;
+            } else {
+                closingSticky.classList.remove('visible');
             }
 
             ticking = false;
@@ -918,6 +919,7 @@
         window.addEventListener('resize', onScroll, { passive: true });
         updateOnScroll();
 
+        // === Смайл ===
         async function smileyAnimation() {
             const el = document.getElementById('smiley');
             const frames = [':-)', ';-)', ':-)'];
