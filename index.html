@@ -10,7 +10,7 @@
     <meta name="author" content="Aleksandr Chepkasov">
     <link rel="author" href="https://orcid.org/0009-0002-5298-143X">
 
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Marck+Script&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -51,25 +51,16 @@
 
         .logo {
             font-family: 'Caveat', cursive;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: #d4af37;
             text-decoration: none;
-            transform: rotate(-4deg);
             display: inline-block;
             transition: color 0.3s ease;
             white-space: nowrap;
         }
 
         .logo:hover { color: #f0c75e; }
-
-        .reg {
-            font-size: 14px;
-            vertical-align: super;
-            color: #d4af37;
-            opacity: 0.8;
-            margin-left: 2px;
-        }
 
         .telegram-btn {
             font-family: 'Caveat', cursive;
@@ -197,10 +188,10 @@
         }
 
         .description {
-            font-family: Arial, sans-serif;
-            font-size: 18px;
+            font-family: 'Marck Script', cursive;
+            font-size: 22px;
             color: #ffffff;
-            line-height: 1.7;
+            line-height: 1.8;
             text-align: center;
             margin-bottom: 25px;
         }
@@ -381,7 +372,7 @@
 
         .closing-wrapper {
             position: relative;
-            height: calc(100vh + 500px);
+            height: calc(100vh + 250px);
             z-index: 2;
         }
 
@@ -392,16 +383,18 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
         }
 
         .closing-caption-zone {
-            height: 33.33vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 0 20px;
+            margin-bottom: 20px;
         }
 
         .closing-divider {
@@ -421,7 +414,6 @@
         }
 
         .closing-image-zone {
-            height: 66.66vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -459,12 +451,12 @@
 
         .signature {
             font-family: 'Caveat', cursive;
-            font-size: 48px;
+            font-size: 34px;
             font-weight: 700;
             color: #d4af37;
             transform: rotate(-4deg);
             margin: 20px 0 60px 0;
-            letter-spacing: 18px;
+            letter-spacing: 13px;
         }
 
         .motto {
@@ -793,7 +785,7 @@
 
     <header>
         <div class="header-left">
-            <a href="about.html" class="logo">AxisAura<span class="reg">®</span></a>
+            <a href="about.html" class="logo">AxisAura Lab</a>
         </div>
         <div class="header-center">
             <a href="telegram.html" class="telegram-btn">Telegram</a>
