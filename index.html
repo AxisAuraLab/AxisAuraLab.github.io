@@ -45,17 +45,9 @@
             align-items: center;
         }
 
-        .header-left {
-            justify-content: flex-start;
-        }
-
-        .header-center {
-            justify-content: center;
-        }
-
-        .header-right {
-            justify-content: flex-end;
-        }
+        .header-left { justify-content: flex-start; }
+        .header-center { justify-content: center; }
+        .header-right { justify-content: flex-end; }
 
         .logo {
             font-family: 'Caveat', cursive;
@@ -69,9 +61,7 @@
             white-space: nowrap;
         }
 
-        .logo:hover {
-            color: #f0c75e;
-        }
+        .logo:hover { color: #f0c75e; }
 
         .reg {
             font-size: 14px;
@@ -94,9 +84,7 @@
             white-space: nowrap;
         }
 
-        .telegram-btn:hover {
-            background-color: #f0c75e;
-        }
+        .telegram-btn:hover { background-color: #f0c75e; }
 
         .menu-icon {
             width: 28px;
@@ -116,9 +104,7 @@
             transition: background-color 0.3s ease;
         }
 
-        .menu-icon:hover span {
-            background-color: #d4af37;
-        }
+        .menu-icon:hover span { background-color: #d4af37; }
 
         .menu-popup {
             position: fixed;
@@ -154,9 +140,7 @@
             text-align: center;
         }
 
-        .menu-popup a:hover {
-            color: #3a2f0f;
-        }
+        .menu-popup a:hover { color: #3a2f0f; }
 
         .menu-divider {
             width: 70%;
@@ -179,9 +163,7 @@
             transition: color 0.2s ease;
         }
 
-        .menu-close:hover {
-            color: #3a2f0f;
-        }
+        .menu-close:hover { color: #3a2f0f; }
 
         .shurik {
             position: fixed;
@@ -376,13 +358,8 @@
             flex-shrink: 0;
         }
 
-        .desc-item.empty {
-            color: transparent;
-        }
-
-        .desc-item.active {
-            font-weight: bold;
-        }
+        .desc-item.empty { color: transparent; }
+        .desc-item.active { font-weight: bold; }
 
         .closing-image-block {
             position: relative;
@@ -491,9 +468,7 @@
             line-height: 1.5;
         }
 
-        .motto-devis.white {
-            color: #ffffff;
-        }
+        .motto-devis.white { color: #ffffff; }
 
         .roadmap-title {
             font-family: 'Caveat', cursive;
@@ -531,13 +506,8 @@
             padding-top: 10px;
         }
 
-        .roadmap-text.white {
-            color: #ffffff;
-        }
-
-        .roadmap-text.gold {
-            color: #d4af37;
-        }
+        .roadmap-text.white { color: #ffffff; }
+        .roadmap-text.gold { color: #d4af37; }
 
         .roadmap-text strong {
             font-family: 'Caveat', cursive;
@@ -561,13 +531,8 @@
             transition: color 0.2s ease;
         }
 
-        footer a:hover {
-            color: #f0c75e;
-        }
-
-        footer p {
-            margin: 8px 0;
-        }
+        footer a:hover { color: #f0c75e; }
+        footer p { margin: 8px 0; }
     </style>
 </head>
 <body>
@@ -794,7 +759,7 @@
             const windowHeight = window.innerHeight;
 
             const start = windowHeight;
-            const end = windowHeight * 0.3;
+            const end = -windowHeight * 2;
 
             let progress = (start - rect.top) / (start - end);
             progress = Math.max(0, Math.min(1, progress));
