@@ -250,7 +250,6 @@
             height: auto;
             display: block;
             transform: translateZ(0);
-            will-change: contents;
         }
 
         .film-zone {
@@ -799,6 +798,20 @@
             menu.classList.toggle('open');
         }
 
+        // === ПРЕДЗАГРУЗКА ВСЕХ ИЗОБРАЖЕНИЙ В КЭШ ===
+        [
+            'wheel1.png',
+            'wheel2.png',
+            'wheel3.png',
+            'shurik.png',
+            'shurik_end_1.png',
+            'roadmap.png',
+            'favicon.png'
+        ].forEach(function(src) {
+            const img = new Image();
+            img.src = src;
+        });
+
         // === ОПТИМИЗАЦИЯ ДЛЯ SAFARI (iPhone) ===
         const shurik = document.getElementById('shurik');
         const closingImage = document.getElementById('closingImage');
@@ -882,7 +895,7 @@
                 });
             }
 
-            // Колесо
+            // Колесо — смена картинки
             if (wheelImage) {
                 const index = Math.floor(scrollY / 150) % wheelFrames.length;
                 if (index !== lastWheelIndex) {
