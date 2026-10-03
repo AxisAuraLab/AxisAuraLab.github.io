@@ -372,9 +372,8 @@
 
         .closing-wrapper {
             position: relative;
-            height: calc(100vh + 150px);
+            height: calc(100vh + 100px);
             z-index: 2;
-            margin-top: -100px;
         }
 
         .closing-sticky {
@@ -436,7 +435,7 @@
         .after-film {
             position: relative;
             z-index: 2;
-            padding: 30px 20px 60px 20px;
+            padding: 0 20px 60px 20px;
             text-align: center;
         }
 
@@ -517,6 +516,18 @@
         @media (max-width: 600px) {
             .roadmap-image {
                 max-width: 150px;
+            }
+
+            .closing-wrapper {
+                height: calc(100vh + 50px);
+            }
+
+            .after-film {
+                padding: 0 20px 40px 20px;
+            }
+
+            .smiley {
+                margin: 20px 0 10px 0;
             }
         }
 
