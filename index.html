@@ -117,7 +117,6 @@
             z-index: 300;
             display: flex;
             flex-direction: column;
-            gap: 0;
             transform: translateX(100%);
             opacity: 0;
             transition: transform 0.4s ease, opacity 0.4s ease;
@@ -361,18 +360,36 @@
         .desc-item.empty { color: transparent; }
         .desc-item.active { font-weight: bold; }
 
-        .closing-image-block {
+        /* === НОВАЯ ЗОНА: ФРАЗА + КАРТИНКА (ЗАЛИПАНИЕ) === */
+        .closing-wrapper {
             position: relative;
+            height: calc(100vh + 500px);
             z-index: 2;
-            text-align: center;
-            padding: 33vh 20px 20px 20px;
+        }
+
+        .closing-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .closing-caption-zone {
+            height: 33.33vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
         }
 
         .closing-divider {
             width: 60%;
             height: 2px;
             background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.6), transparent);
-            margin: 0 auto 40px auto;
+            margin-bottom: 20px;
             border-radius: 2px;
         }
 
@@ -380,9 +397,16 @@
             font-family: 'Caveat', cursive;
             font-size: 34px;
             color: #d4af37;
-            margin-bottom: 40px;
             transform: rotate(-3deg);
             display: inline-block;
+        }
+
+        .closing-image-zone {
+            height: 66.66vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
         }
 
         .closing-image {
@@ -595,10 +619,21 @@
 
     </div>
 
-    <div class="closing-image-block">
-        <div class="closing-divider"></div>
-        <div class="closing-caption">Продолжение следует</div>
-        <img src="shurik_end_1.png" alt="А что если..." class="closing-image" id="closingImage">
+    <div class="closing-wrapper" id="closingWrapper">
+
+        <div class="closing-sticky">
+
+            <div class="closing-caption-zone">
+                <div class="closing-divider"></div>
+                <div class="closing-caption">Продолжение следует</div>
+            </div>
+
+            <div class="closing-image-zone">
+                <img src="shurik_end_1.png" alt="А что если..." class="closing-image" id="closingImage">
+            </div>
+
+        </div>
+
     </div>
 
     <div class="after-film">
@@ -749,19 +784,20 @@
             }
         });
 
+        // === РОСТ КАРТИНКИ ПРИ ПРОКРУТКЕ ВНУТРИ closing-wrapper ===
         const closingImage = document.getElementById('closingImage');
-        const closingBlock = document.querySelector('.closing-image-block');
+        const closingWrapper = document.getElementById('closingWrapper');
 
         function updateClosingImage() {
-            if (!closingImage || !closingBlock) return;
+            if (!closingImage || !closingWrapper) return;
 
-            const rect = closingBlock.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
+            const rect = closingWrapper.getBoundingClientRect();
+            const wrapperHeight = closingWrapper.offsetHeight;
+            const viewportHeight = window.innerHeight;
+            const scrollableHeight = wrapperHeight - viewportHeight;
 
-            const start = windowHeight;
-            const end = -windowHeight * 2;
-
-            let progress = (start - rect.top) / (start - end);
+            const scrolledInside = -rect.top;
+            let progress = scrolledInside / scrollableHeight;
             progress = Math.max(0, Math.min(1, progress));
 
             const scale = 0.2 + progress * 0.8;
@@ -777,6 +813,7 @@
         window.addEventListener('resize', updateClosingImage);
         updateClosingImage();
 
+        // === ПЛЁНКА ===
         const film = document.getElementById('film');
         const descriptions = document.getElementById('descriptions');
         const filmWrapper = document.querySelector('.film-wrapper');
