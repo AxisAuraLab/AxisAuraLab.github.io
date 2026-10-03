@@ -236,6 +236,19 @@
         .camera-zone {
             height: 33.33vh;
             width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 250;
+            pointer-events: none;
+        }
+
+        .wheel-image {
+            width: 33%;
+            max-width: 250px;
+            height: auto;
+            display: block;
         }
 
         .film-zone {
@@ -596,7 +609,9 @@
 
         <div class="sticky-zone">
 
-            <div class="camera-zone"></div>
+            <div class="camera-zone">
+                <img src="wheel1.png" alt="Колесо" class="wheel-image" id="wheelImage">
+            </div>
 
             <div class="film-zone">
 
@@ -867,6 +882,24 @@
         window.addEventListener('scroll', updateFilm);
         window.addEventListener('resize', updateFilm);
         updateFilm();
+
+        // === КОЛЕСО: смена картинок каждые 150px скролла ===
+        const wheelImage = document.getElementById('wheelImage');
+        const wheelFrames = ['wheel1.png', 'wheel2.png', 'wheel3.png'];
+        let lastWheelIndex = 0;
+
+        function updateWheel() {
+            if (!wheelImage) return;
+            const scrollY = window.scrollY;
+            const index = Math.floor(scrollY / 150) % wheelFrames.length;
+            if (index !== lastWheelIndex) {
+                wheelImage.src = wheelFrames[index];
+                lastWheelIndex = index;
+            }
+        }
+
+        window.addEventListener('scroll', updateWheel);
+        updateWheel();
 
         async function smileyAnimation() {
             const el = document.getElementById('smiley');
