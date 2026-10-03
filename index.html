@@ -193,7 +193,8 @@
             width: 100%;
             height: auto;
             z-index: 1;
-            transition: transform 0.1s linear, opacity 0.1s linear;
+            transition: transform 0.1s linear, opacity 0.1s linear, filter 0.1s linear;
+            filter: blur(0px);
         }
 
         .content {
@@ -387,22 +388,36 @@
             position: relative;
             z-index: 2;
             text-align: center;
-            padding: 60px 20px 20px 20px;
+            padding: 33vh 20px 20px 20px;
+        }
+
+        .closing-divider {
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.6), transparent);
+            margin: 0 auto 40px auto;
+            border-radius: 2px;
+        }
+
+        .closing-caption {
+            font-family: 'Caveat', cursive;
+            font-size: 34px;
+            color: #d4af37;
+            margin-bottom: 40px;
+            transform: rotate(-3deg);
+            display: inline-block;
         }
 
         .closing-image {
-            max-width: 800px;
+            max-width: 960px;
             width: 100%;
             height: auto;
             display: inline-block;
+            transform: scale(0.2);
+            filter: blur(15px);
             opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 1.2s ease, transform 1.2s ease;
-        }
-
-        .closing-image.visible {
-            opacity: 1;
-            transform: scale(1);
+            transform-origin: center center;
+            will-change: transform, filter, opacity;
         }
 
         .after-film {
@@ -616,6 +631,8 @@
     </div>
 
     <div class="closing-image-block">
+        <div class="closing-divider"></div>
+        <div class="closing-caption">Продолжение следует</div>
         <img src="shurik_end_1.png" alt="А что если..." class="closing-image" id="closingImage">
     </div>
 
@@ -756,28 +773,44 @@
                 const progress = scrollY / maxScroll;
                 const scale = 1 - progress;
                 const opacity = 1 - progress;
+                const blur = progress * 15;
                 shurik.style.transform = 'translateX(-50%) scale(' + scale + ')';
                 shurik.style.opacity = opacity;
+                shurik.style.filter = 'blur(' + blur + 'px)';
             } else {
                 shurik.style.transform = 'translateX(-50%) scale(0)';
                 shurik.style.opacity = 0;
+                shurik.style.filter = 'blur(15px)';
             }
         });
 
         const closingImage = document.getElementById('closingImage');
+        const closingBlock = document.querySelector('.closing-image-block');
 
-        function checkClosingImage() {
-            if (!closingImage) return;
-            const rect = closingImage.getBoundingClientRect();
+        function updateClosingImage() {
+            if (!closingImage || !closingBlock) return;
+
+            const rect = closingBlock.getBoundingClientRect();
             const windowHeight = window.innerHeight;
 
-            if (rect.top < windowHeight - 100) {
-                closingImage.classList.add('visible');
-            }
+            const start = windowHeight;
+            const end = windowHeight * 0.3;
+
+            let progress = (start - rect.top) / (start - end);
+            progress = Math.max(0, Math.min(1, progress));
+
+            const scale = 0.2 + progress * 0.8;
+            const blur = 15 - progress * 15;
+            const opacity = progress;
+
+            closingImage.style.transform = 'scale(' + scale + ')';
+            closingImage.style.filter = 'blur(' + blur + 'px)';
+            closingImage.style.opacity = opacity;
         }
 
-        window.addEventListener('scroll', checkClosingImage);
-        checkClosingImage();
+        window.addEventListener('scroll', updateClosingImage);
+        window.addEventListener('resize', updateClosingImage);
+        updateClosingImage();
 
         const film = document.getElementById('film');
         const descriptions = document.getElementById('descriptions');
