@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AxisAura Lab — Quotes</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Caveat', cursive;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 64px;
+            font-weight: 700;
+            color: #d4af37;
+            transform: rotate(-4deg);
+            margin-bottom: 80px;
+        }
+
+        .quotes {
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        .quote {
+            font-size: 34px;
+            line-height: 1.4;
+        }
+
+        .quote.white {
+            color: #ffffff;
+        }
+
+        .quote.gold {
+            color: #d4af37;
+        }
+
+        .quote::before {
+            content: "“";
+            font-size: 60px;
+            vertical-align: middle;
+            margin-right: 10px;
+            opacity: 0.8;
+        }
+
+        .smiley {
+            font-family: 'Caveat', cursive;
+            font-size: 56px;
+            font-weight: 700;
+            color: #d4af37;
+            margin: 60px 0 20px 0;
+            min-height: 70px;
+            letter-spacing: 2px;
+        }
+
+        .signature {
+            font-family: 'Caveat', cursive;
+            font-size: 48px;
+            font-weight: 700;
+            color: #d4af37;
+            transform: rotate(-4deg);
+            margin: 20px 0 50px 0;
+            letter-spacing: 18px;
+        }
+
+        .back {
+            font-family: 'Caveat', cursive;
+            font-size: 28px;
+            font-weight: 700;
+            color: #d4af37;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .back:hover {
+            color: #f0c75e;
+        }
+
+        .back .arrow {
+            font-size: 34px;
+            display: inline-block;
+            transform: rotate(-15deg);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>AxisAura Lab</h1>
+
+    <div class="quotes">
+
+        <div class="quote white">
+            Ivan Vasilievich changed his profession. We change physics))
+        </div>
+
+        <div class="quote gold">
+            Our data does not fly — it teleports
+        </div>
+
+        <div class="quote white">
+            How do you like that, Bill?)
+        </div>
+
+        <div class="quote gold">
+            Bits, bytes — yesterday. Atom-Axis — today
+        </div>
+
+    </div>
+
+    <div class="smiley" id="smiley"></div>
+
+    <div class="signature">X X X X</div>
+
+    <a href="index.html" class="back">
+        <span class="arrow">←</span>
+        <span>Back to Home</span>
+    </a>
+
+    <script>
+        async function smileyAnimation() {
+            const el = document.getElementById('smiley');
+            const frames = [':-)', ';-)', ':-)'];
+
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            for (let i = 0; i < frames.length; i++) {
+                const frame = frames[i];
+                for (const char of frame) {
+                    el.innerHTML += char;
+                    await sleep(70);
+                }
+                if (i < frames.length - 1) {
+                    await sleep(500);
+                    for (let j = 0; j < frame.length; j++) {
+                        el.innerHTML = el.innerHTML.slice(0, -1);
+                        await sleep(45);
+                    }
+                    await sleep(250);
+                }
+            }
+        }
+
+        smileyAnimation();
+    </script>
+
+</body>
+</html>
