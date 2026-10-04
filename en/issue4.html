@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AxisAura Lab — Issue Four</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            padding: 80px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 56px;
+            font-weight: 700;
+            color: #d4af37;
+            transform: rotate(-3deg);
+            margin-bottom: 15px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        h1.visible { opacity: 1; }
+
+        .topic {
+            font-family: 'Caveat', cursive;
+            font-size: 40px;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 50px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .topic.visible { opacity: 1; }
+
+        .typed {
+            font-size: 18px;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-bottom: 25px;
+            color: #ffffff;
+            min-height: 30px;
+            text-align: center;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 20px;
+            background-color: #d4af37;
+            vertical-align: middle;
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .smiley {
+            font-family: 'Caveat', cursive;
+            font-size: 56px;
+            font-weight: 700;
+            color: #d4af37;
+            margin: 50px 0 20px 0;
+            min-height: 70px;
+            letter-spacing: 2px;
+        }
+
+        .signature {
+            font-family: 'Caveat', cursive;
+            font-size: 48px;
+            font-weight: 700;
+            color: #d4af37;
+            transform: rotate(-4deg);
+            margin: 20px 0 60px 0;
+            letter-spacing: 18px;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .signature.visible { opacity: 1; }
+
+        .quote {
+            font-family: 'Caveat', cursive;
+            font-size: 26px;
+            color: #ffffff;
+            max-width: 800px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            position: relative;
+        }
+
+        .quote.visible { opacity: 1; }
+
+        .quote::before {
+            content: "“";
+            font-size: 50px;
+            vertical-align: middle;
+            margin-right: 10px;
+            opacity: 0.8;
+        }
+
+        .quote-author {
+            font-family: 'Caveat', cursive;
+            font-size: 28px;
+            color: #d4af37;
+            font-weight: 700;
+            margin-bottom: 60px;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .quote-author.visible { opacity: 1; }
+
+        .back {
+            font-family: 'Caveat', cursive;
+            font-size: 28px;
+            font-weight: 700;
+            color: #d4af37;
+            text-decoration: none;
+            opacity: 0;
+            transition: opacity 1s ease, color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back.visible { opacity: 1; }
+
+        .back:hover { color: #f0c75e; }
+
+        .back .arrow {
+            font-size: 34px;
+            display: inline-block;
+            transform: rotate(-15deg);
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="title">Issue Four — January 28</h1>
+
+    <div class="topic" id="topic">Topic: Structural Cryptography</div>
+
+    <div class="typed" id="typed1"></div>
+    <div class="typed" id="typed2"></div>
+    <div class="typed" id="typed3"></div>
+    <div class="typed" id="typed4"></div>
+    <div class="typed" id="typed5"></div>
+    <div class="typed" id="typed6"></div>
+    <div class="typed" id="typed7"></div>
+
+    <div class="smiley" id="smiley"></div>
+
+    <div class="signature" id="signature">X X X X</div>
+
+    <div class="quote" id="quote">The problem of cryptography is to make a message unintelligible to the enemy but intelligible to the recipient.</div>
+
+    <div class="quote-author" id="quoteAuthor">Claude Shannon</div>
+
+    <a href="index.html" class="back" id="back">
+        <span class="arrow">←</span>
+        <span>Back to Home</span>
+    </a>
+
+    <script>
+        const PRINT_SPEED = 40;
+        const ERASE_SPEED = 30;
+        const PAUSE_BEFORE_ERASE = 800;
+        const PAUSE_BEFORE_NEW = 400;
+        const PAUSE_AFTER_LINE = 300;
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function typeText(element, segments) {
+            let html = '';
+            for (let i = 0; i < segments.length; i++) {
+                const seg = segments[i];
+
+                if (seg.type === 'text') {
+                    for (const char of seg.value) {
+                        html += char;
+                        element.innerHTML = html + '<span class="cursor"></span>';
+                        await sleep(PRINT_SPEED);
+                    }
+                } else if (seg.type === 'rewrite') {
+                    for (const char of seg.old) {
+                        html += char;
+                        element.innerHTML = html + '<span class="cursor"></span>';
+                        await sleep(PRINT_SPEED);
+                    }
+                    await sleep(PAUSE_BEFORE_ERASE);
+                    for (let j = 0; j < seg.old.length; j++) {
+                        html = html.slice(0, -1);
+                        element.innerHTML = html + '<span class="cursor"></span>';
+                        await sleep(ERASE_SPEED);
+                    }
+                    await sleep(PAUSE_BEFORE_NEW);
+                    for (const char of seg.new) {
+                        html += char;
+                        element.innerHTML = html + '<span class="cursor"></span>';
+                        await sleep(PRINT_SPEED);
+                    }
+                }
+            }
+            element.innerHTML = html;
+        }
+
+        async function smileyAnimation() {
+            const el = document.getElementById('smiley');
+            const frames = [':-)', ';-)', ':-)'];
+
+            for (let i = 0; i < frames.length; i++) {
+                const frame = frames[i];
+                for (const char of frame) {
+                    el.innerHTML += char;
+                    await sleep(80);
+                }
+                if (i < frames.length - 1) {
+                    await sleep(600);
+                    for (let j = 0; j < frame.length; j++) {
+                        el.innerHTML = el.innerHTML.slice(0, -1);
+                        await sleep(50);
+                    }
+                    await sleep(300);
+                }
+            }
+        }
+
+        async function startTyping() {
+            await sleep(500);
+            document.getElementById('title').classList.add('visible');
+            await sleep(600);
+            document.getElementById('topic').classList.add('visible');
+            await sleep(600);
+
+            await typeText(document.getElementById('typed1'), [
+                { type: 'text', value: 'Encryption embedded in the very ' },
+                { type: 'rewrite', old: 'geometry', new: 'structure' },
+                { type: 'text', value: ' of the table.' }
+            ]);
+            await sleep(PAUSE_AFTER_LINE);
+
+            await typeText(document.getElementById('typed2'), [
+                { type: 'rewrite', old: 'Zero', new: 'Not a single' },
+                { type: 'text', value: ' computation.' }
+            ]);
+            await sleep(PAUSE_AFTER_LINE);
+
+            await typeText(document.getElementById('typed3'), [
+                { type: 'rewrite', old: 'Absolute', new: 'Total' },
+                { type: 'text', value: ' protection. With examples and comparison with ' },
+                { type: 'rewrite', old: 'classical', new: 'old' },
+                { type: 'text', value: ' algorithms.' }
+            ]);
+            await sleep(PAUSE_AFTER_LINE);
+
+            await typeText(document.getElementById('typed4'), [
+                { type: 'text', value: 'We do not give ready-made solutions. We seek them together with you.' }
+            ]);
+            await sleep(PAUSE_AFTER_LINE);
+
+            await typeText(document.getElementById('typed5'), [
+                { type: 'text', value: 'We are building a new method of data transmission — from scratch, without budgets, without corporations. On rigorous mathematics, honest ' },
+                { type: 'rewrite', old: 'prototypes', new: 'trials' },
+                { type: 'text', value: ' and a four-axis spatial architecture.' }
+            ]);
+            await sleep(PAUSE_AFTER_LINE);
+
+            await typeText(document.getElementById('typed6'), [
+                { type: 'text', value: 'If you are an engineer, physicist, programmer, mathematician — write to us. If you are a student and want to try yourself in a real project — write to us. If you just want to help — write to us.' }
+            ]);
+            await sleep(PAUSE_AFTER_LINE);
+
+            await typeText(document.getElementById('typed7'), [
+                { type: 'text', value: 'We do not promise a finished product. We are building it together. Together we are making history that future generations will not be ashamed of. Each of you is a creator by birth. Reveal your talents.' }
+            ]);
+
+            await sleep(700);
+            await smileyAnimation();
+            await sleep(700);
+            document.getElementById('signature').classList.add('visible');
+            await sleep(700);
+            document.getElementById('quote').classList.add('visible');
+            await sleep(1000);
+            document.getElementById('quoteAuthor').classList.add('visible');
+            await sleep(700);
+            document.getElementById('back').classList.add('visible');
+        }
+
+        startTyping();
+    </script>
+
+</body>
+</html>
