@@ -47,7 +47,10 @@
 
         .header-left { justify-content: flex-start; }
         .header-center { justify-content: center; }
-        .header-right { justify-content: flex-end; }
+        .header-right {
+            justify-content: flex-end;
+            gap: 15px;
+        }
 
         .logo {
             font-family: 'Caveat', cursive;
@@ -81,10 +84,10 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            margin-left: 15px;
             font-family: 'Caveat', cursive;
             font-size: 18px;
             font-weight: 700;
+            white-space: nowrap;
         }
 
         .lang-active {
@@ -108,7 +111,6 @@
 
         @media (max-width: 600px) {
             .lang-switch {
-                margin-left: 8px;
                 font-size: 16px;
             }
         }
@@ -837,13 +839,13 @@
         </div>
         <div class="header-center">
             <a href="telegram.html" class="telegram-btn">Telegram</a>
+        </div>
+        <div class="header-right">
             <div class="lang-switch">
                 <span class="lang-active">RU</span>
                 <span class="lang-sep">|</span>
                 <a href="en/" class="lang-link">EN</a>
             </div>
-        </div>
-        <div class="header-right">
             <div class="menu-icon" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
